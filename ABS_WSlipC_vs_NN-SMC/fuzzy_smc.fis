@@ -15,19 +15,19 @@ DefuzzMethod='centroid'
 Name='s'
 Range=[0 1]
 NumMFs=4
-MF1='Z':'gaussmf',[0.005 0]
-MF2='PS':'gaussmf',[0.025 0.05]
-MF3='PM':'gaussmf',[0.075 0.25]
-MF4='PB':'gaussmf',[0.1 0.5]
+MF1='Z':'gaussmf',[0.01 0]
+MF2='PS':'gaussmf',[0.025 0.075]
+MF3='PM':'gaussmf',[0.075 0.3]
+MF4='PB':'gaussmf',[0.15 0.5]
 
 [Output1]
 Name='k'
 Range=[0 100]
 NumMFs=4
 MF1='Z':'gaussmf',[1 0]
-MF2='PS':'gaussmf',[5 10]
+MF2='PS':'gaussmf',[5 12.5]
 MF3='PM':'gaussmf',[15 50]
-MF4='PB':'gaussmf',[25 100]
+MF4='PB':'gaussmf',[20 90]
 
 [Rules]
 1, 1 (1) : 1

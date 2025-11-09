@@ -59,9 +59,9 @@ road_condition_names   = { 'Dry Asphalt', ...
                            'Wet Asphalt', ...
                            'Cobblestone', ...
                            'Snow' };
-auxdata.road_condition = 4;
+auxdata.road_condition = 3;
 
-fprintf( 'Road condition: %s.\n', ...
+fprintf( 'Road condition: %s.\n', ...h
          road_condition_names{ auxdata.road_condition } );
 
 % Maximum braking torque
@@ -124,7 +124,7 @@ time       = (t0:dt:tf)'; % [s] Time vector
 %  - manoeuvre_type = 2 -> piecewise braking;
 %  - manoeuvre_type = 3 -> piecewise braking and hold at lower than max value.
 %
-manoeuvre_type = 1;
+manoeuvre_type = 3;
 rise_time_tb   = Tb_max/k; % time needed to go from 0 to Tb_max
 
 switch manoeuvre_type
