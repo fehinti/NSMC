@@ -1458,7 +1458,7 @@ static void mdl_setup_runtime_resources_c11_ABS_contDyn_model_SMC_FZL_NN
   sfSetAnimationVectors(chartInstance->S, &chartInstance->c11_JITStateAnimation
                         [0], &chartInstance->c11_JITTransitionAnimation[0]);
   covrtCreateStateflowInstanceData(chartInstance->c11_covrtInstance, 1U, 0U, 1U,
-    73U);
+    89U);
   covrtChartInitFcn(chartInstance->c11_covrtInstance, 0U, false, false, false);
   covrtStateInitFcn(chartInstance->c11_covrtInstance, 0U, 0U, false, false,
                     false, 0U, &c11_decisionTxtStartIdx, &c11_decisionTxtEndIdx);

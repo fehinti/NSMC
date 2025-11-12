@@ -42,7 +42,7 @@ smc.k = 50;         % sliding surface parameter
 smc.rho = 2.5;       % slip differential uncertainty bound
 
 % RNN-uncertianty-observer parameters
-rnn.eta1 = 0.5;       % alpha_hat learning rate
+rnn.eta1 = 3;       % alpha_hat learning rate
 rnn.eta2 = 0.01;       % v_hat learning rate
 rnn.eta3 = 0.01;       % w_hat learning rate
 rnn.eta4 = 0.01;       % r_hat learning rate
@@ -59,7 +59,7 @@ road_condition_names   = { 'Dry Asphalt', ...
                            'Wet Asphalt', ...
                            'Cobblestone', ...
                            'Snow' };
-auxdata.road_condition = 3;
+auxdata.road_condition = 4;
 
 fprintf( 'Road condition: %s.\n', ...h
          road_condition_names{ auxdata.road_condition } );
@@ -124,7 +124,7 @@ time       = (t0:dt:tf)'; % [s] Time vector
 %  - manoeuvre_type = 2 -> piecewise braking;
 %  - manoeuvre_type = 3 -> piecewise braking and hold at lower than max value.
 %
-manoeuvre_type = 3;
+manoeuvre_type = 1;
 rise_time_tb   = Tb_max/k; % time needed to go from 0 to Tb_max
 
 switch manoeuvre_type
@@ -419,4 +419,36 @@ rectangle( 'Position', [ x_WSC_ABS(i) - v_length / 2, ...
                          40 - width / 2, v_length, width ], ...
            'Curvature', [ 0.2, 0.9 ], 'FaceColor', 'green' );
 
-%% No more cool plots?
+%-------------------------------------------------------------------------------
+%% Plot simulation results - presentation
+%-------------------------------------------------------------------------------
+
+% plot the control input of the maneuver
+figure( 'Name', 'Maneuver control input', 'NumberTitle', 'off' );
+
+hold on;
+grid on;
+
+plot( time, Tb_noABS, '-k', 'LineWidth', 2 );
+plot( time, Tb_SMC_ABS, '-b', 'LineWidth', 2 );
+plot( time, Tb_WSC_ABS, '-r', 'LineWidth', 2 );
+
+xlabel( '$time [s]$' );
+ylabel( '$T_b [Nm]$' );
+legend( 'no ABS', 'FNSMC', 'WSC' )
+title( 'Control input - Braking torque' )
+
+% plot the velocity of the maneuver
+figure( 'Name', 'Vehicle Velocity', 'NumberTitle', 'off' );
+
+hold on;
+grid on;
+
+plot( time, v_noABS, '-k', 'LineWidth', 2 );
+plot( time, v_SMC_ABS, '-b', 'LineWidth', 2 );
+plot( time, v_WSC_ABS, '-r', 'LineWidth', 2 );
+
+xlabel( '$time [s]$' );
+ylabel( '$velocity [m/s]$' );
+legend( 'no ABS', 'FNSMC', 'WSC' )
+title( 'Vehicle velocity' )
