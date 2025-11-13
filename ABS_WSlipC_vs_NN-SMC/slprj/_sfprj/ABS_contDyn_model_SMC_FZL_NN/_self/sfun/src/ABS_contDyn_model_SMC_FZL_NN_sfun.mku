@@ -16,7 +16,7 @@ MATLAB_ROOT  = /Applications/MATLAB_R2024b.app/toolbox/stateflow/stateflow/../..
 BUILDARGS   = 
 #------------------------------ Include/Lib Path ------------------------------
  
-USER_INCLUDES = -I"/Users/victorfajemirokun/Desktop/UniTrento/Semester 4/Arc. of Intelligent Transportation Sys./FNSMC/ABS_WSlipC_vs_NN-SMC" 
+USER_INCLUDES = -I"/Users/victorfajemirokun/Desktop/UniTrento/Semester 4/Arc. of Intelligent Transportation Sys./NSMC/ABS_WSlipC_vs_NN-SMC" 
 AUX_INCLUDES = 
 MLSLSF_INCLUDES  = \
     -I"/Applications/MATLAB_R2024b.app/extern/include" \
@@ -24,7 +24,7 @@ MLSLSF_INCLUDES  = \
     -I"/Applications/MATLAB_R2024b.app/simulink/include/sf_runtime" \
     -I"/Applications/MATLAB_R2024b.app/stateflow/c/mex/include" \
     -I"/Applications/MATLAB_R2024b.app/rtw/c/src" \
-    -I"/Users/victorfajemirokun/Desktop/UniTrento/Semester 4/Arc. of Intelligent Transportation Sys./FNSMC/ABS_WSlipC_vs_NN-SMC/slprj/_sfprj/ABS_contDyn_model_SMC_FZL_NN/_self/sfun/src" 
+    -I"/Users/victorfajemirokun/Desktop/UniTrento/Semester 4/Arc. of Intelligent Transportation Sys./NSMC/ABS_WSlipC_vs_NN-SMC/slprj/_sfprj/ABS_contDyn_model_SMC_FZL_NN/_self/sfun/src" 
 
 THIRD_PARTY_INCLUDES = 
 

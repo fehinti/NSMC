@@ -59,7 +59,7 @@ road_condition_names   = { 'Dry Asphalt', ...
                            'Wet Asphalt', ...
                            'Cobblestone', ...
                            'Snow' };
-auxdata.road_condition = 4;
+auxdata.road_condition = 1;
 
 fprintf( 'Road condition: %s.\n', ...h
          road_condition_names{ auxdata.road_condition } );
@@ -345,7 +345,8 @@ hold on;
 grid on;
 axis equal;
 
-xlim( [ 0, max( [x_SMC_ABS(end), x_noABS(end), x_WSC_ABS(end)] ) + v_length ] );
+% xlim( [ 0, max( [x_SMC_ABS(end), x_noABS(end), x_WSC_ABS(end)] ) + v_length ] );
+xlim( [ 0, max( [x_SMC_ABS(end), x_noABS(end)] ) + v_length ] );
 ylim( [ 0, 50 ] );
 
 yL = get( gca, 'YLim' ); % get the maximum y to use later
@@ -375,30 +376,43 @@ end
 % Start plotting the position values
 fprintf('Plot the braking maneuver (vehicle position).\n');
 
-h1 = plot( [ x_SMC_ABS(1),   x_SMC_ABS(1)   ], [ 10, 10 ], '--r', 'LineWidth', 2);
-h2 = plot( [ x_noABS(1), x_noABS(1) ], [ 25, 25 ], '--b', 'LineWidth', 2);
-h3 = plot( [ x_WSC_ABS(1),   x_WSC_ABS(1)   ], [ 40, 40 ], '--g', 'LineWidth', 2);
+h1 = plot( [ x_SMC_ABS(1),   x_SMC_ABS(1)   ], [ 15, 15 ], '--r', 'LineWidth', 2);
+h2 = plot( [ x_noABS(1), x_noABS(1) ], [ 30, 30 ], '--b', 'LineWidth', 2);
+% h1 = plot( [ x_SMC_ABS(1),   x_SMC_ABS(1)   ], [ 10, 10 ], '--r', 'LineWidth', 2);
+% h2 = plot( [ x_noABS(1), x_noABS(1) ], [ 25, 25 ], '--b', 'LineWidth', 2);
+% h3 = plot( [ x_WSC_ABS(1),   x_WSC_ABS(1)   ], [ 40, 40 ], '--g', 'LineWidth', 2);
 
-legend( [ h1, h2, h3 ], { 'with SMC-ABS', 'without ABS',  'with WSC-ABS' } );
+% legend( [ h1, h2, h3 ], { 'with SMC-ABS', 'without ABS',  'with WSC-ABS' } );
+legend( [ h1, h2 ], { 'with NSMC-ABS', 'without ABS' } );
 
 n = floor(tf/dt);
 for i = 2:frame_skip:n
-    plot( [ x_SMC_ABS(1),   x_SMC_ABS(i)   ], [ 10, 10 ], '--r', ...
+    plot( [ x_SMC_ABS(1),   x_SMC_ABS(i)   ], [ 15, 15 ], '--r', ...
           'LineWidth', 2, 'HandleVisibility', 'off' );
-    plot( [ x_noABS(1), x_noABS(i) ], [ 25, 25 ], '--b', ...
+    plot( [ x_noABS(1), x_noABS(i) ], [ 30, 30 ], '--b', ...
           'LineWidth', 2, 'HandleVisibility', 'off' );
-    plot( [ x_WSC_ABS(1),   x_WSC_ABS(i)   ], [ 40, 40 ], '--g', ...
-          'LineWidth', 2, 'HandleVisibility', 'off' );
+    % plot( [ x_SMC_ABS(1),   x_SMC_ABS(i)   ], [ 10, 10 ], '--r', ...
+    %       'LineWidth', 2, 'HandleVisibility', 'off' );
+    % plot( [ x_noABS(1), x_noABS(i) ], [ 25, 25 ], '--b', ...
+    %       'LineWidth', 2, 'HandleVisibility', 'off' );
+    % plot( [ x_WSC_ABS(1),   x_WSC_ABS(i)   ], [ 40, 40 ], '--g', ...
+    %       'LineWidth', 2, 'HandleVisibility', 'off' );
 
     h_SMC_ABS   = rectangle( 'Position', [ x_SMC_ABS(i) - v_length / 2, ...
-                                      10 - width / 2, v_length, width ], ...
+                                      15 - width / 2, v_length, width ], ...
                         'Curvature', [ 0.2, 0.9 ], 'FaceColor', 'red' );
     hnoABS = rectangle( 'Position', [ x_noABS(i) - v_length / 2, ...
-                                      25 - width / 2, v_length, width ], ...
+                                      30 - width / 2, v_length, width ], ...
                         'Curvature', [ 0.2, 0.9 ], 'FaceColor', 'blue' );
-    h_WSC_ABS   = rectangle( 'Position', [ x_WSC_ABS(i) - v_length / 2, ...
-                                      40 - width / 2, v_length, width ], ...
-                        'Curvature', [ 0.2, 0.9 ], 'FaceColor', 'green' );
+    % h_SMC_ABS   = rectangle( 'Position', [ x_SMC_ABS(i) - v_length / 2, ...
+    %                                   10 - width / 2, v_length, width ], ...
+    %                     'Curvature', [ 0.2, 0.9 ], 'FaceColor', 'red' );
+    % hnoABS = rectangle( 'Position', [ x_noABS(i) - v_length / 2, ...
+    %                                   25 - width / 2, v_length, width ], ...
+    %                     'Curvature', [ 0.2, 0.9 ], 'FaceColor', 'blue' );
+    % h_WSC_ABS   = rectangle( 'Position', [ x_WSC_ABS(i) - v_length / 2, ...
+    %                                   40 - width / 2, v_length, width ], ...
+    %                     'Curvature', [ 0.2, 0.9 ], 'FaceColor', 'green' );
 
     progress_bar(2, n, frame_skip, i);
 
@@ -406,18 +420,24 @@ for i = 2:frame_skip:n
 
     set( h_SMC_ABS,  'Visible', 'off' );
     set( hnoABS,'Visible', 'off' );
-    set( h_WSC_ABS,  'Visible', 'off' );
+    % set( h_WSC_ABS,  'Visible', 'off' );
 end
 
 rectangle( 'Position', [ x_SMC_ABS(i) - v_length / 2, ...
-                         10 - width / 2, v_length, width ], ...
+                         15 - width / 2, v_length, width ], ...
            'Curvature', [ 0.2, 0.9 ], 'FaceColor', 'red' );
 rectangle( 'Position', [ x_noABS(i) - v_length / 2, ...
-                         25 - width / 2, v_length, width ], ...
+                         30 - width / 2, v_length, width ], ...
            'Curvature', [ 0.2, 0.9 ], 'FaceColor', 'blue' );
-rectangle( 'Position', [ x_WSC_ABS(i) - v_length / 2, ...
-                         40 - width / 2, v_length, width ], ...
-           'Curvature', [ 0.2, 0.9 ], 'FaceColor', 'green' );
+% rectangle( 'Position', [ x_SMC_ABS(i) - v_length / 2, ...
+%                          10 - width / 2, v_length, width ], ...
+%            'Curvature', [ 0.2, 0.9 ], 'FaceColor', 'red' );
+% rectangle( 'Position', [ x_noABS(i) - v_length / 2, ...
+%                          25 - width / 2, v_length, width ], ...
+%            'Curvature', [ 0.2, 0.9 ], 'FaceColor', 'blue' );
+% rectangle( 'Position', [ x_WSC_ABS(i) - v_length / 2, ...
+%                          40 - width / 2, v_length, width ], ...
+%            'Curvature', [ 0.2, 0.9 ], 'FaceColor', 'green' );
 
 %-------------------------------------------------------------------------------
 %% Plot simulation results - presentation
@@ -431,14 +451,15 @@ grid on;
 
 plot( time, Tb_noABS, '-k', 'LineWidth', 2 );
 plot( time, Tb_SMC_ABS, '-b', 'LineWidth', 2 );
-plot( time, Tb_WSC_ABS, '-r', 'LineWidth', 2 );
+% plot( time, Tb_WSC_ABS, '-r', 'LineWidth', 2 );
 
 xlabel( '$time [s]$' );
 ylabel( '$T_b [Nm]$' );
-legend( 'no ABS', 'FNSMC', 'WSC' )
+% legend( 'no ABS', 'FNSMC', 'WSC' )
+legend( 'no ABS', 'NSMC' )
 title( 'Control input - Braking torque' )
 
-% plot the velocity of the maneuver
+%% plot the velocity of the maneuver
 figure( 'Name', 'Vehicle Velocity', 'NumberTitle', 'off' );
 
 hold on;
@@ -446,9 +467,51 @@ grid on;
 
 plot( time, v_noABS, '-k', 'LineWidth', 2 );
 plot( time, v_SMC_ABS, '-b', 'LineWidth', 2 );
-plot( time, v_WSC_ABS, '-r', 'LineWidth', 2 );
+% plot( time, v_WSC_ABS, '-r', 'LineWidth', 2 );
 
 xlabel( '$time [s]$' );
 ylabel( '$velocity [m/s]$' );
-legend( 'no ABS', 'FNSMC', 'WSC' )
+% legend( 'no ABS', 'FNSMC', 'WSC' )
+legend( 'no ABS', 'NSMC' )
 title( 'Vehicle velocity' )
+
+%% plot the longitudinal wheel slip
+
+lambda_ref = 0.1*ones(length(time),1);
+
+figure( 'Name', 'Longitudinal wheel slip', 'NumberTitle', 'off' );
+
+hold on;
+grid on;
+
+ylim( [ 0, 1 ] );
+
+plot( time, lambda_noABS, '-k', 'LineWidth', 2 );
+plot( time, lambda_SMC_ABS, '-b', 'LineWidth', 2 );
+plot( time, lambda_ref, '--r', 'LineWidth', 1 )
+
+xlabel( '$time [s]$' );
+ylabel( '$\lambda [-]$' );
+% legend( 'no ABS', 'FNSMC', 'WSC' )
+legend( 'no ABS', 'NSMC', '$\lambda_{ref}$' )
+title( 'Wheel slip' )
+
+%% plot the longitudinal wheel slip - NSMC vs. PID-WSC
+
+lambda_ref = 0.1*ones(length(time),1);
+
+figure( 'Name', 'Longitudinal wheel slip', 'NumberTitle', 'off' );
+
+hold on;
+grid on;
+
+ylim( [ 0, 1 ] );
+
+plot( time, lambda_SMC_ABS, '-b', 'LineWidth', 2 );
+plot( time, lambda_WSC_ABS, '-r', 'LineWidth', 2 );
+plot( time, lambda_ref, '--k', 'LineWidth', 1 )
+
+xlabel( '$time [s]$' );
+ylabel( '$\lambda [-]$' );
+legend( 'NSMC', 'PID-WSC', '$\lambda_{ref}$' )
+title( 'Wheel slip' )
